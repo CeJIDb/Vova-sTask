@@ -1,0 +1,46 @@
+Sub IdCompare()
+
+Dim range As Variant
+Dim tabl1 As Variant, tabl2 As Variant
+
+Set rangeID1 = Worksheets("Sheet1").Range("E5:E891")
+Set rangeID2 = Worksheets("Sheet2").Range("L5:L718")
+
+For Each tabl1 In rangeID1
+    
+    If Not IsEmpty(tabl1) Then
+        tabl1.Offset(0, 10) = "New"
+    End If
+
+    For Each tabl2 In rangeID2
+        
+        If IsEmpty(tabl1) Then
+            If Not IsEmpty(tabl1.Offset(0,1)) Then
+
+                tabl1.Interior.Color = RGB(247,255,0)
+                tabl1.Offset(0,1).Interior.Color = RGB(247,255,0)
+                tabl1.Offset(0,6) = "No ID"
+
+            End If
+
+            Exit For
+        End If
+
+        If tabl1.Value = tabl2.Value Then
+            tabl1.Offset(0, 6) = "Old"
+            tabl1.Offset(0, 7) = tabl2.Offset(0, -5)
+            tabl1.Offset(0, 8) = tabl2.Offset(0, -4)
+            tabl1.Offset(0, 9) = tabl2.Offset(0, -3)
+            Exit For
+        End If
+
+    Next tabl2
+
+    If tabl1.Offset(0, 6) = "New" Then   
+        tabl1.Interior.Color = RGB(0,255,0)
+    End If
+
+Next tabl1
+
+End Sub
+
