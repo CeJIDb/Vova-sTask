@@ -67,7 +67,7 @@ For Each tabl2 In cRangeID2
 
     If Not IsEmpty(tabl2) And Not tabl2.Offset(0, 1) = "Yes" Then
 
-        tabl2.Offset(0, -2).Interior.Color=(240, 255, 0)
+        tabl2.Offset(0, -2).Interior.Color=RGB(240, 255, 0)
         tabl2.Offset(0, 1) = "No"
 
     End If
