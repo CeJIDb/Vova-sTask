@@ -1,0 +1,65 @@
+Sub ID()
+Dim CompareRange As Variant, x As Variant, SearchChar As String, y As Variant, i As Integer, k As Integer
+
+Set CompareRangeSigName = Range("J5:J718")
+Set CompareRangeID = Range("L5:L718")
+i = 0
+k = 0
+SearchChar = " "
+
+For Each x In CompareRangeSigName
+    For Each y In CompareRangeID
+        If i = k Then
+            If IsEmpty(x) = False Then
+                y.Value = Left(x, InStr(1, x, SearchChar) - 1)
+                Exit For
+            End If
+        End If
+    k = k + 1
+    Next y
+    k = 0
+    i = i + 1
+Next x
+
+End Sub
+
+Sub IdSearching()
+
+Dim CompareRange As Variant, x As Variant, y As Variant, i As Integer, Flag1 As Integer
+
+Set CompareRangeID1 = Range("L5:L718")
+Set CompareRangeID2 = Range("S5:S891")
+i = 0
+Flag1 = 0
+
+For Each x In CompareRangeID2
+    Flag1 = 0
+    For Each y In CompareRangeID1
+        If IsEmpty(x) = False Then
+            If IsEmpty(y) = False Then
+                If InStr(1, y.Value, x.Value) = 1 Then
+                    If Len(x) = Len(y) Then
+                        x.Offset(0, 7) = "old"
+                        x.Offset(0, 6) = y.Offset(0, -3)
+                        x.Offset(0, 8) = y.Offset(0, -5)
+                        x.Offset(0, 9) = y.Offset(0, -4)
+                        Flag1 = 1
+                        Exit For
+                    End If
+                End If
+            End If
+        Else:
+            If IsEmpty(x.Offset(0, 1)) = False Then
+            x.Interior.Color = RGB(255, 0, 0)
+            End If
+        End If
+    Next y
+    If Flag1 = 0 Then
+        If IsEmpty(x.Offset(0, 1)) = False Then
+            x.Offset(0, 7) = "new"
+            x.Interior.Color = RGB(0, 255, 0)
+        End If
+    End If
+Next x
+          
+End Sub
