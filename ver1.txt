@@ -42,6 +42,40 @@ For Each tabl1 In cRangeID1
 
 Next tabl1
 
+
+
+For Each tabl2 In cRangeID2 
+
+    For Each tabl1 in cRangeID1
+
+    If IsEmpty(tabl2) Then
+
+        Exit For
+
+    End If
+
+    If tabl1.Value = tabl2.Value Then
+
+        tabl2.Offset(0, 1) = "Yes"
+        tabl2.Offset(0, 2) = tabl1.Offset(0, 1)
+        tabl2.Offset(0, 3) = tabl1.Offset(0, 22)
+        Exit For
+
+    End If
+
+    Next tabl1
+
+    If Not IsEmpty(tabl2) And Not tabl2.Offset(0, 1) = "Yes" Then
+
+        tabl2.Offset(0, -2).Interior.Color=(240, 255, 0)
+        tabl2.Offset(0, 1) = "No"
+
+    End If
+
+Next tabl2
+
+
+
 End Sub
 
 
